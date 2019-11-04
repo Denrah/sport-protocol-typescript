@@ -1,44 +1,27 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Спортивные протоколы
+Рабочая версия доступна [здесь](https://denrah.github.io)
 
-## Available Scripts
+Пароль для входа - **admin**
 
-In the project directory, you can run:
 
-### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Приложение написано на TypeScript + React
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Для запуска локально:
 
-### `npm test`
+    npm install
+    npm start
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Диаграмма классов
+![Диаграмма классов](docs/diagram.png)
 
-### `npm run build`
+## Пара комментариев 
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Приложение в качестве хранилища данных использует LocalStorage. Для него была реализована своя обертка DatabaseService, которая предоставляет набор generic-методов для работы с хранилищем.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Внедрение зависимостей в отдельные классы-компоненты происходит при помощи алиасов типов. Всего в приложении есть две зависимости - DatabaseService и AuthorizationService. Все они инициализируются в специальном классе AppDependency, который отвечает за управление этими зависимостями. Он одновременно реализует интерфейсы HasDatabaseService и HasAuthorizationService, которые компоненты требуют в зависимости от нужных им сервисов.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Известные проблемы
+В приложении пользователю не показывается результат валидации. Так что если вы нажимаете на кнопку "Сохранить", а форма не реагирует, значит какие-то поля заполнены не правильно.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Разумеется, некоторые вещи можно было бы сделать лучше. Например, названия коллекций в хранилище вынести в константы приложения. Но это и остальное не было сделано в силу ограниченного времени.
