@@ -215,21 +215,27 @@ export default class CreateProtocolForm extends React.Component<Props & RouteCom
                         }
                         <hr/>
                         <h2>Статистика</h2>
-                        <div><strong>Всего событий:</strong> {this.state.protocol.events.length}</div>
-                        <div><strong>Время первого события:</strong>&nbsp;
-                            {this.state.protocol.events.sort((a, b) => a.time < b.time ? -1 : 1)[0].time}
-                        </div>
-                        <div><strong>Первое событие:</strong>&nbsp;
-                            {this.state.protocol.events.sort((a, b) => a.time < b.time ? -1 : 1)[0].eventType.name}
-                        </div>
-                        <div><strong>Время последнего события:</strong>&nbsp;
-                            {this.state.protocol.events.sort((a, b) => a.time > b.time ? -1 : 1)[0].time}
-                        </div>
-                        <div><strong>Последнее событие:</strong>&nbsp;
-                            {this.state.protocol.events.sort((a, b) => a.time > b.time ? -1 : 1)[0].eventType.name}
-                        </div>
-                        <strong>Матрица событий</strong>
-                        <EventsMatrix ref={this.eventsMatrixRef} protocol={this.state.protocol}/>
+                        {
+                            (this.state.protocol.events.length > 0) ?
+                                <div>
+                                    <div><strong>Всего событий:</strong> {this.state.protocol.events.length}</div>
+                                    <div><strong>Время первого события:</strong>&nbsp;
+                                        {this.state.protocol.events.sort((a, b) => a.time < b.time ? -1 : 1)[0].time}
+                                    </div>
+                                    <div><strong>Первое событие:</strong>&nbsp;
+                                        {this.state.protocol.events.sort((a, b) => a.time < b.time ? -1 : 1)[0].eventType.name}
+                                    </div>
+                                    <div><strong>Время последнего события:</strong>&nbsp;
+                                        {this.state.protocol.events.sort((a, b) => a.time > b.time ? -1 : 1)[0].time}
+                                    </div>
+                                    <div><strong>Последнее событие:</strong>&nbsp;
+                                        {this.state.protocol.events.sort((a, b) => a.time > b.time ? -1 : 1)[0].eventType.name}
+                                    </div>
+                                    <strong>Матрица событий</strong>
+                                    <EventsMatrix ref={this.eventsMatrixRef} protocol={this.state.protocol}/>
+                                </div>
+                                : null
+                        }
                     </div>
                 </div>
             </div>

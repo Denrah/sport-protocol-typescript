@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {BrowserRouter as Router, HashRouter, Route, Switch} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import TeamForm from "./Modules/TeamForm/TeamForm";
 import AppDependency from "./Utils/AppDependency";
@@ -23,7 +23,7 @@ export default class App extends React.Component{
   render(): React.ReactNode {
     return (
         <div className="App">
-          <Router>
+          <HashRouter>
             {
               (this.appDependency.authService.isAuthorized()) ?
                   <Switch>
@@ -49,7 +49,7 @@ export default class App extends React.Component{
                     </Route>
                   </Switch>
             }
-          </Router>
+          </HashRouter >
         </div>
     );
   }

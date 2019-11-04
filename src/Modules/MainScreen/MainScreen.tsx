@@ -72,7 +72,7 @@ export default class MainScreen extends React.Component<Props, State> {
                         <h1 className="mt-4">Виды спорта</h1>
                         {
                             (this.dependencies.authService.isAuthorized()) ?
-                                <a className="btn btn-primary mb-4" href="/addSport">Создать</a> : null
+                                <a className="btn btn-primary mb-4" href="/#/addSport">Создать</a> : null
                         }
                         <ul className="list-group">
                             {this.state.sports.map(sport => {
@@ -81,7 +81,7 @@ export default class MainScreen extends React.Component<Props, State> {
                                         {sport.name}
                                         {
                                             (this.dependencies.authService.isAuthorized()) ?
-                                                <a className="btn btn-primary" href={"/protocols/create/" + sport.uuid}>Создать протокол</a> : null
+                                                <a className="btn btn-primary" href={"/#/protocols/create/" + sport.uuid}>Создать протокол</a> : null
                                         }
                                     </li>
                                 );
@@ -95,7 +95,7 @@ export default class MainScreen extends React.Component<Props, State> {
                                 return (
                                     <li key={protocol.uuid} className="list-group-item d-flex justify-content-between">
                                         {protocol.date} - {protocol.sport.name}
-                                        <a className="btn btn-primary" href={"/protocols/" + protocol.uuid}>Просмотр</a>
+                                        <a className="btn btn-primary" href={"/#/protocols/" + protocol.uuid}>Просмотр</a>
                                     </li>
                                 );
                             })}
@@ -105,7 +105,7 @@ export default class MainScreen extends React.Component<Props, State> {
                         <h1 className="mt-4">Команды</h1>
                         {
                             (this.dependencies.authService.isAuthorized()) ?
-                                <a className="btn btn-primary mb-4" href="/addTeam">Создать</a> : null
+                                <a className="btn btn-primary mb-4" href="/#/addTeam">Создать</a> : null
                         }
                         <ul className="list-group">
                             {this.state.teams.map(team => {
@@ -128,7 +128,7 @@ export default class MainScreen extends React.Component<Props, State> {
                         <h1 className="mt-4">Типы событий</h1>
                         {
                             (this.dependencies.authService.isAuthorized()) ?
-                                <a className="btn btn-primary mb-4" href="/addEventType">Создать</a> : null
+                                <a className="btn btn-primary mb-4" href="/#/addEventType">Создать</a> : null
                         }
                         <ul className="list-group mb-4">
                             {this.state.eventTypes.map(eventType => {
