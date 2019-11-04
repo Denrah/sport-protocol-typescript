@@ -1,26 +1,57 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.css';
+import TeamForm from "./Modules/TeamForm/TeamForm";
+import AppDependency from "./Utils/AppDependency";
+import MainScreen from "./Modules/MainScreen/MainScreen";
+import SportForm from "./Modules/SportForm/SportForm";
+import CreateProtocolForm from "./Modules/Protocol/CreateProtocolForm";
+import ProtocolScreen from "./Modules/Protocol/ProtocolScreen";
+import EventTypeForm from "./Modules/EventsTypeForm/EventTypeForm";
+import DefaultDataSeeder from "./Utils/DefaultDataSeeder";
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+export default class App extends React.Component{
+  appDependency: AppDependency;
+
+  constructor() {
+    super({});
+    this.appDependency = AppDependency.makeDefaultDependencies();
+    DefaultDataSeeder.seedDefaults(this.appDependency);
+  }
+
+  render(): React.ReactNode {
+    return (
+        <div className="App">
+          <Router>
+            {
+              (this.appDependency.authService.isAuthorized()) ?
+                  <Switch>
+                    <Route path="/addTeam">
+                      <TeamForm dependencies={this.appDependency}/>
+                    </Route>
+                    <Route path="/addSport">
+                      <SportForm dependencies={this.appDependency}/>
+                    </Route>
+                    <Route path="/addEventType">
+                      <EventTypeForm dependencies={this.appDependency}/>
+                    </Route>
+                    <Route path="/protocols/create/:sportId" render={props => <CreateProtocolForm {...props} dependencies={this.appDependency}/> }/>
+                    <Route path="/protocols/:protocolId" render={props => <ProtocolScreen {...props} dependencies={this.appDependency}/>}/>
+                    <Route path="/">
+                      <MainScreen dependencies={this.appDependency}/>
+                    </Route>
+                  </Switch> :
+                  <Switch>
+                    <Route path="/protocols/:protocolId" render={props => <ProtocolScreen {...props} dependencies={this.appDependency}/>}/>
+                    <Route path="/">
+                      <MainScreen dependencies={this.appDependency}/>
+                    </Route>
+                  </Switch>
+            }
+          </Router>
+        </div>
+    );
+  }
+};
+
